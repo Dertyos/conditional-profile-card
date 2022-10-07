@@ -28,19 +28,43 @@ function render(variables = {}) {
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
+  if (variables && variables.background == "") {
+    `<div class="cover"><img src="${variables.background}" /></div>`;
+  }
+
+  /* if (variables.name == "") {
+    variables.name = "Your Name";
+  }
+  if (variables.lastname == "") {
+    variables.lastname = "Your Lastname";
+  } */
+  if (variables.twitter == null) {
+    variables.twitter = "https://twitter.com/4geeksacademy";
+  } else {
+    variables.twitter = "https://twitter.com/" + variables.twitter;
+  }
+  variables.instagram == null
+    ? (variables.instagram = "https://instagram.com/4geeksacademy")
+    : (variables.instagram = "https://instagram.com/" + variables.instagram);
+  variables.github == null
+    ? (variables.github = "https://github.com/4geeksacademy")
+    : (variables.github = "https://github.com/" + variables.github);
+  variables.linkedin == null
+    ? (variables.linkedin = "https://linkedin.com/4geeksacademy")
+    : (variables.linkedin = "https://linkedin.com/" + variables.linkedin);
 
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/4geeksacademy"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="https://github.com/4geeksacademy"><i class="fab fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/4geeksacademy"><i class="fab fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/4geeksacademy"><i class="fab fa-instagram"></i></a></li>
+          <h1>${variables.name} ${variables.lastname}</h1>
+          <h2>${variables.role}</h2>
+          <h3>${variables.city}, ${variables.country}</h3>
+          <ul class= ${variables.socialMediaPosition}>
+            <li><a href=${variables.twitter}><i class="fab fa-twitter"></i></a></li>
+            <li><a href=${variables.github}><i class="fab fa-github"></i></a></li>
+            <li><a href=${variables.linkedin}><i class="fab fa-linkedin"></i></a></li>
+            <li><a href=${variables.instagram}><i class="fab fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
@@ -64,11 +88,11 @@ window.onload = function() {
     github: "alesanchezr",
     linkedin: null,
     instagram: null,
-    name: null,
-    lastname: null,
-    role: null,
-    country: null,
-    city: null
+    name: "",
+    lastname: "",
+    role: "",
+    country: "",
+    city: ""
   };
   render(window.variables); //render the card for the first time
 
